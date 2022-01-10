@@ -1,10 +1,10 @@
 package com.lojanelioalves.api.resources;
 
 import com.lojanelioalves.api.entities.Categoria;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import com.lojanelioalves.api.service.CategoriaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,15 +13,21 @@ import java.util.List;
 @RequestMapping(value = "/categorias")
 public class CategoriaResource {
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<Categoria> listar(){
-        Categoria categoria1 = new Categoria(1, "Informatica");
-        Categoria categoria2 = new Categoria(2, "Escritorio");
-        List<Categoria> lista = new ArrayList<>();
-        lista.add(categoria2);
-        lista.add(categoria2);
+    @Autowired
+    private CategoriaService service;
 
-        return lista;
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<Categoria>> findAll() {
+        List<Categoria> lista = service.buscarTodos();
+        return ResponseEntity.ok().body(lista);
+    }
+
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> buscarPorId(@PathVariable Integer id){
+        Categoria categoria = service.buscarPorID(id);
+        return ResponseEntity.ok().body(categoria);
+
     }
 
 
