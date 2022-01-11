@@ -22,7 +22,6 @@ public class CategoriaResource {
         return ResponseEntity.ok().body(lista);
     }
 
-
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> buscarPorId(@PathVariable Integer id){
         Categoria categoria = service.find(id);

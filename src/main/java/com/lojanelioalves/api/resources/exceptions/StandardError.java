@@ -1,6 +1,9 @@
 package com.lojanelioalves.api.resources.exceptions;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
+import java.time.Instant;
 
 public class StandardError implements Serializable {
 
@@ -8,12 +11,15 @@ public class StandardError implements Serializable {
 
     private Integer status;
     private String msg;
-    private Long timeStamp;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+    private Instant timeStamp;
+    private String path;
 
-    public StandardError(Integer status, String msg, Long timeStamp) {
+    public StandardError(Integer status, String msg, Instant timeStamp, String path) {
         this.status = status;
         this.msg = msg;
         this.timeStamp = timeStamp;
+        this.path = path;
     }
 
     public Integer getStatus() {
@@ -32,11 +38,19 @@ public class StandardError implements Serializable {
         this.msg = msg;
     }
 
-    public Long getTimeStamp() {
+    public Instant getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(Long timeStamp) {
+    public void setTimeStamp(Instant timeStamp) {
         this.timeStamp = timeStamp;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 }
