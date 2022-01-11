@@ -2,7 +2,7 @@ package com.lojanelioalves.api.service;
 
 import com.lojanelioalves.api.entities.Categoria;
 import com.lojanelioalves.api.repositories.CategoriaRepository;
-import org.hibernate.ObjectNotFoundException;
+import com.lojanelioalves.api.service.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +21,10 @@ public class CategoriaService {
     }
 
     // Busca por id
-    public Categoria buscarPorID(Integer id){
+    public Categoria find(Integer id){
         Optional<Categoria> obj = repository.findById(id);
-        return obj.orElseThrow(null);
+        return obj.orElseThrow(() -> new
+                ObjectNotFoundException("Objeto não encontrado! Id:" + id + ", Tipo: " + Categoria.class.getName()));
+
     }
 }
