@@ -1,9 +1,11 @@
 package com.lojanelioalves.api.service;
 
+import com.lojanelioalves.api.entities.Categoria;
 import com.lojanelioalves.api.entities.Cidade;
 import com.lojanelioalves.api.entities.Produto;
 import com.lojanelioalves.api.repositories.CidadeRepository;
 import com.lojanelioalves.api.repositories.ProdutoRepository;
+import com.lojanelioalves.api.service.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,7 @@ public class CidadeService {
     // Busca por id
     public Cidade buscarPorID(Long id){
         Optional<Cidade> obj = repository.findById(id);
-        return obj.orElseThrow(null);
+        return obj.orElseThrow(() -> new
+                ObjectNotFoundException("Objeto não encontrado! Id:" + id + ", Tipo: " + Cidade.class.getName()));
     }
 }

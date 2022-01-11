@@ -1,5 +1,7 @@
 package com.lojanelioalves.api.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ public class Estado implements Serializable {
     private Long id;
     private String nome;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "estado")
     private List<Cidade> cidades = new ArrayList<>();
 

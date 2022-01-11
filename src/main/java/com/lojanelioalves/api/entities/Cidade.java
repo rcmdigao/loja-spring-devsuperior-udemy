@@ -1,5 +1,7 @@
 package com.lojanelioalves.api.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -13,6 +15,7 @@ public class Cidade implements Serializable {
     private Long id;
     private String nome;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "fk_estado")
     private Estado estado;
