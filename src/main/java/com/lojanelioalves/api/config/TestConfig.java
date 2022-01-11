@@ -1,13 +1,8 @@
 package com.lojanelioalves.api.config;
 
-import com.lojanelioalves.api.entities.Categoria;
-import com.lojanelioalves.api.entities.Cidade;
-import com.lojanelioalves.api.entities.Estado;
-import com.lojanelioalves.api.entities.Produto;
-import com.lojanelioalves.api.repositories.CategoriaRepository;
-import com.lojanelioalves.api.repositories.CidadeRepository;
-import com.lojanelioalves.api.repositories.EstadoRepository;
-import com.lojanelioalves.api.repositories.ProdutoRepository;
+import com.lojanelioalves.api.entities.*;
+import com.lojanelioalves.api.entities.enums.TipoCliente;
+import com.lojanelioalves.api.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +22,10 @@ public class TestConfig implements CommandLineRunner {
     private EstadoRepository estadoRepository;
     @Autowired
     private CidadeRepository cidadeRepository;
+    @Autowired
+    private ClienteRepository clienteRepository;
+    @Autowired
+    private EnderecoRepository enderecoRepository;
 
 
 
@@ -70,9 +69,15 @@ public class TestConfig implements CommandLineRunner {
         cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 
 
+        Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+        cli1.getTelefones().addAll(Arrays.asList("33022013", "94948504"));
+
+        Endereco end1 = new Endereco(null, "Rua Flores", "300", "Apt 303", "Jardim", "38929384", cli1, c1);
+        Endereco end2 = new Endereco(null, "Rua Margarida", "200", "Apt 306", "Jardim", "74030392", cli1, c2);
 
 
-
-
+        cli1.getEnderecos().addAll(Arrays.asList(end1, end2));
+        clienteRepository.saveAll(Arrays.asList(cli1));
+        enderecoRepository.saveAll(Arrays.asList(end1, end2));
     }
 }
