@@ -1,5 +1,6 @@
 package com.lojanelioalves.api.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.lojanelioalves.api.entities.enums.EstadoPagamento;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ public abstract class Pagamento implements Serializable {
     private Long id;
     private Integer estado;
 
+    @JsonBackReference
     @OneToOne
     @JoinColumn(name = "fk_pedido")
     @MapsId

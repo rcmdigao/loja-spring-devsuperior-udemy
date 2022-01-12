@@ -1,5 +1,7 @@
 package com.lojanelioalves.api.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
@@ -7,6 +9,7 @@ import javax.persistence.Entity;
 public class ItemPedido {
 
     //Todo Criar chave composta entre Pedidos e Produtos
+    @JsonIgnore // Não será serializado
     @EmbeddedId
     private ItemPedidoPK id = new ItemPedidoPK();
 
@@ -25,6 +28,7 @@ public class ItemPedido {
     }
 
     // acesso direto fora da classe
+    @JsonIgnore
     public Pedido getPedido() {
         return id.getPedido();
     }
