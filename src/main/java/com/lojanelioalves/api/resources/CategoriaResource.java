@@ -25,20 +25,29 @@ public class CategoriaResource {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> buscarPorId(@PathVariable Integer id){
-        Categoria categoria = service.find(id);
+    public ResponseEntity<Categoria> buscarPorId(@PathVariable Integer id){
+        Categoria categoria = service.buscarPorId(id);
         return ResponseEntity.ok().body(categoria);
 
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@RequestBody Categoria objCategoria){
-        objCategoria = service.cadastrar(objCategoria);
+    public ResponseEntity<Void> cadastrar(@RequestBody Categoria obj){
+        obj = service.cadastrar(obj);
         // Pegando a URI
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}").buildAndExpand(objCategoria.getId()).toUri();
+                .path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Void> atualizar(@RequestBody Categoria obj, @PathVariable Integer id){
+        obj.setId(id);
+        obj = service.atualizar(obj);
+        return ResponseEntity.noContent().build();
+    }
+
+
 
 
 

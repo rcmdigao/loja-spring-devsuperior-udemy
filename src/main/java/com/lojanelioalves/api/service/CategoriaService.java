@@ -21,16 +21,28 @@ public class CategoriaService {
     }
 
     // Busca por id
-    public Categoria find(Integer id){
+    public Categoria buscarPorId(Integer id){
         Optional<Categoria> obj = repository.findById(id);
         return obj.orElseThrow(() -> new
                 ObjectNotFoundException("Objeto não encontrado! Id:" + id + ", Tipo: " + Categoria.class.getName()));
 
     }
 
-    // Inserir categoria
+    //Todo Serviço: Cadastro de categorias
     public Categoria cadastrar(Categoria obj) {
         obj.setId((null));
         return repository.save(obj);
     }
+
+    //Todo Serviço: Atualizar categorias
+    public Categoria atualizar(Categoria objCategoria) {
+        buscarPorId(objCategoria.getId()); // Pesquisando pra ver se já tem no banco.
+        return repository.save(objCategoria);
+    }
+
+
+
+
+
+
 }
