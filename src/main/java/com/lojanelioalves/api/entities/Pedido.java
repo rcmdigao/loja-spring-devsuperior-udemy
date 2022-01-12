@@ -1,8 +1,6 @@
 package com.lojanelioalves.api.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -23,11 +21,10 @@ public class Pedido implements Serializable {
     @JsonFormat(pattern="dd/MM/yyyy HH:mm")
     private Date instant;
 
-    @JsonManagedReference
+
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
     private Pagamento pagamento;
 
-    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "fk_cliente")
     private Cliente cliente;
