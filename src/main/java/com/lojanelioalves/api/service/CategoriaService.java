@@ -27,4 +27,10 @@ public class CategoriaService {
                 ObjectNotFoundException("Objeto não encontrado! Id:" + id + ", Tipo: " + Categoria.class.getName()));
 
     }
+
+    // Inserir categoria
+    public Categoria cadastrar(Categoria obj) {
+        obj.setId((null));
+        return repository.save(obj);
+    }
 }
