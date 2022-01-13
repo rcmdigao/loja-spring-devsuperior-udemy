@@ -1,5 +1,6 @@
 package com.lojanelioalves.api.resources;
 
+import com.lojanelioalves.api.dto.CategoriaDTO;
 import com.lojanelioalves.api.entities.Categoria;
 import com.lojanelioalves.api.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/categorias")
@@ -19,20 +20,21 @@ public class CategoriaResource {
     private CategoriaService service;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<Categoria>> findAll() {
+    public ResponseEntity<List<CategoriaDTO>> buscarTodos() {
         List<Categoria> lista = service.buscarTodos();
-        return ResponseEntity.ok().body(lista);
+        List<CategoriaDTO> listaDTO = lista.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listaDTO);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Categoria> buscarPorId(@PathVariable Integer id){
+    public ResponseEntity<Categoria> buscarPorId(@PathVariable Integer id) {
         Categoria categoria = service.buscarPorId(id);
         return ResponseEntity.ok().body(categoria);
 
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> cadastrar(@RequestBody Categoria obj){
+    public ResponseEntity<Void> cadastrar(@RequestBody Categoria obj) {
         obj = service.cadastrar(obj);
         // Pegando a URI
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -41,7 +43,7 @@ public class CategoriaResource {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> atualizar(@RequestBody Categoria obj, @PathVariable Integer id){
+    public ResponseEntity<Void> atualizar(@RequestBody Categoria obj, @PathVariable Integer id) {
         obj.setId(id);
         obj = service.atualizar(obj);
         return ResponseEntity.noContent().build();
@@ -52,8 +54,6 @@ public class CategoriaResource {
         service.excluir(id);
         return ResponseEntity.noContent().build();
     }
-
-
 
 
 }

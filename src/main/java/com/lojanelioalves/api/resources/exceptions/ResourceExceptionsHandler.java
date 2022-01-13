@@ -14,14 +14,14 @@ import java.time.Instant;
 // Tratamento do tipo ResourceNotFoundException
 public class ResourceExceptionsHandler {
 
-    //TODO Erro personalisado: ObjectNotFoundException
+    //TODO Erro personalizado: ObjectNotFoundException
     @ExceptionHandler(ObjectNotFoundException.class)
     public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request) {
         StandardError err = new StandardError(HttpStatus.NOT_FOUND.value(), e.getMessage(), Instant.now(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
     }
 
-    //TODO Erro personalisado: DataIntegrityException
+    //TODO Erro personalizado: DataIntegrityException
     @ExceptionHandler(DataIntegrityException.class)
     public ResponseEntity<StandardError> dataIntegrity(DataIntegrityException e, HttpServletRequest request) {
         StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), Instant.now(), request.getRequestURI());
