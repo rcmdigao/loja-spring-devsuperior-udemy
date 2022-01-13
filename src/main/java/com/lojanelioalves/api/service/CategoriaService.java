@@ -1,5 +1,6 @@
 package com.lojanelioalves.api.service;
 
+import com.lojanelioalves.api.dto.CategoriaDTO;
 import com.lojanelioalves.api.entities.Categoria;
 import com.lojanelioalves.api.repositories.CategoriaRepository;
 import com.lojanelioalves.api.service.exceptions.DataIntegrityException;
@@ -62,6 +63,11 @@ public class CategoriaService {
     public Page<Categoria> buscaPaginada(Integer pagina, Integer registroPorPagina, String ordenacao, String direcao) {
         PageRequest pageRequest = PageRequest.of(pagina, registroPorPagina, Direction.valueOf(direcao), ordenacao);
         return repository.findAll(pageRequest);
+    }
+
+    //Todo Servico: Metodo auxiliar de conversao CategoriaDTO => Categoria
+    public Categoria fromDTO(CategoriaDTO objDTO){
+        return new Categoria(objDTO.getId(), objDTO.getNome());
     }
 
 

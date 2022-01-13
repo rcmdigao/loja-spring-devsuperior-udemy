@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,7 +47,8 @@ public class CategoriaResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> cadastrar(@RequestBody Categoria obj) {
+    public ResponseEntity<Void> cadastrar(@Valid @RequestBody CategoriaDTO objDto) {
+        Categoria obj = service.fromDTO(objDto);
         obj = service.cadastrar(obj);
         // Pegando a URI
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -55,7 +57,8 @@ public class CategoriaResource {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> atualizar(@RequestBody Categoria obj, @PathVariable Integer id) {
+    public ResponseEntity<Void> atualizar(@Valid @RequestBody CategoriaDTO objDto, @PathVariable Integer id) {
+        Categoria obj = service.fromDTO(objDto);
         obj.setId(id);
         obj = service.atualizar(obj);
         return ResponseEntity.noContent().build();
