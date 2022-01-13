@@ -41,6 +41,15 @@ public class TestConfig implements CommandLineRunner {
         Categoria cat1 = new Categoria(null, "Informática");
         Categoria cat2 = new Categoria(null, "Escritório");
         Categoria cat3 = new Categoria(null, "Computadores");
+        Categoria cat4 = new Categoria(null, "Cama, Mesa e Banho");
+        Categoria cat5 = new Categoria(null, "Higiene");
+        Categoria cat6 = new Categoria(null, "Bebidas");
+        Categoria cat7 = new Categoria(null, "Biscoitos");
+        Categoria cat8 = new Categoria(null, "Doces");
+        Categoria cat9 = new Categoria(null, "Conservas");
+        Categoria cat10 = new Categoria(null, "Perfumaria");
+        Categoria cat11 = new Categoria(null, "Cozinha");
+        Categoria cat12 = new Categoria(null, "Pets");
 
         Produto p1 = new Produto(null, "Computador", 2000.00);
         Produto p2 = new Produto(null, "Impressora", 800.00);
@@ -56,7 +65,7 @@ public class TestConfig implements CommandLineRunner {
         p3.getCategorias().addAll(Arrays.asList(cat1));
 
 
-        categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+        categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8, cat9, cat10, cat11, cat12));
         produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
 
         /****************************************************************************/

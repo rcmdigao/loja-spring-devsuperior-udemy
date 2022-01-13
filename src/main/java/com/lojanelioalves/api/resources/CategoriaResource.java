@@ -4,6 +4,7 @@ import com.lojanelioalves.api.dto.CategoriaDTO;
 import com.lojanelioalves.api.entities.Categoria;
 import com.lojanelioalves.api.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -23,6 +24,17 @@ public class CategoriaResource {
     public ResponseEntity<List<CategoriaDTO>> buscarTodos() {
         List<Categoria> lista = service.buscarTodos();
         List<CategoriaDTO> listaDTO = lista.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listaDTO);
+    }
+
+    @RequestMapping(value = "/page", method = RequestMethod.GET)
+    public ResponseEntity<Page<CategoriaDTO>> buscaPaginada(
+            @RequestParam(value = "pagina", defaultValue = "0") Integer pagina,
+            @RequestParam(value = "registroPorPagina", defaultValue = "24") Integer registroPorPagina,
+            @RequestParam(value = "ordenacao", defaultValue = "nome") String ordenacao,
+            @RequestParam(value = "direcao", defaultValue = "ASC") String direcao) {
+        Page<Categoria> lista = service.buscaPaginada(pagina, registroPorPagina, ordenacao, direcao);
+        Page<CategoriaDTO> listaDTO = lista.map(obj -> new CategoriaDTO(obj));
         return ResponseEntity.ok().body(listaDTO);
     }
 
@@ -54,6 +66,9 @@ public class CategoriaResource {
         service.excluir(id);
         return ResponseEntity.noContent().build();
     }
+
+
+
 
 
 }

@@ -7,6 +7,9 @@ import com.lojanelioalves.api.service.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,12 +22,12 @@ public class CategoriaService {
     private CategoriaRepository repository;
 
     //Todo Serviço: Buscar todas as categorias
-    public List<Categoria> buscarTodos(){
+    public List<Categoria> buscarTodos() {
         return repository.findAll();
     }
 
     //Todo Serviço: Buscar Categoria por ID
-    public Categoria buscarPorId(Integer id){
+    public Categoria buscarPorId(Integer id) {
         Optional<Categoria> obj = repository.findById(id);
         return obj.orElseThrow(() -> new
                 ObjectNotFoundException("Objeto não encontrado! Id:" + id + ", Tipo: " + Categoria.class.getName()));
@@ -45,12 +48,21 @@ public class CategoriaService {
     //Todo Serviço: Excluir categoria por ID
     public void excluir(Integer id) {
         buscarPorId(id);
-        try{
+        try {
             repository.deleteById(id);
-        }catch (DataIntegrityViolationException e){
+        } catch (DataIntegrityViolationException e) {
             throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos!");
         }
 
 
     }
+
+
+    //Todo Serviço: Paginacao de Categorias
+    public Page<Categoria> buscaPaginada(Integer pagina, Integer registroPorPagina, String ordenacao, String direcao) {
+        PageRequest pageRequest = PageRequest.of(pagina, registroPorPagina, Direction.valueOf(direcao), ordenacao);
+        return repository.findAll(pageRequest);
+    }
+
+
 }
