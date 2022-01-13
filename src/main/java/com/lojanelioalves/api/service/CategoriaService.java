@@ -2,8 +2,11 @@ package com.lojanelioalves.api.service;
 
 import com.lojanelioalves.api.entities.Categoria;
 import com.lojanelioalves.api.repositories.CategoriaRepository;
+import com.lojanelioalves.api.service.exceptions.DataIntegrityException;
 import com.lojanelioalves.api.service.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,17 +18,16 @@ public class CategoriaService {
     @Autowired
     private CategoriaRepository repository;
 
-    // Servico de buscar todos
+    //Todo Serviço: Buscar todas as categorias
     public List<Categoria> buscarTodos(){
         return repository.findAll();
     }
 
-    // Busca por id
+    //Todo Serviço: Buscar Categoria por ID
     public Categoria buscarPorId(Integer id){
         Optional<Categoria> obj = repository.findById(id);
         return obj.orElseThrow(() -> new
                 ObjectNotFoundException("Objeto não encontrado! Id:" + id + ", Tipo: " + Categoria.class.getName()));
-
     }
 
     //Todo Serviço: Cadastro de categorias
@@ -36,13 +38,19 @@ public class CategoriaService {
 
     //Todo Serviço: Atualizar categorias
     public Categoria atualizar(Categoria objCategoria) {
-        buscarPorId(objCategoria.getId()); // Pesquisando pra ver se já tem no banco.
+        buscarPorId(objCategoria.getId());
         return repository.save(objCategoria);
     }
 
+    //Todo Serviço: Excluir categoria por ID
+    public void excluir(Integer id) {
+        buscarPorId(id);
+        try{
+            repository.deleteById(id);
+        }catch (DataIntegrityViolationException e){
+            throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos!");
+        }
 
 
-
-
-
+    }
 }

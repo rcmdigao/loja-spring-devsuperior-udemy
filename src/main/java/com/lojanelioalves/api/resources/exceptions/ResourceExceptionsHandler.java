@@ -1,5 +1,6 @@
 package com.lojanelioalves.api.resources.exceptions;
 
+import com.lojanelioalves.api.service.exceptions.DataIntegrityException;
 import com.lojanelioalves.api.service.exceptions.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +14,19 @@ import java.time.Instant;
 // Tratamento do tipo ResourceNotFoundException
 public class ResourceExceptionsHandler {
 
+    //TODO Erro personalisado: ObjectNotFoundException
     @ExceptionHandler(ObjectNotFoundException.class)
     public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request) {
         StandardError err = new StandardError(HttpStatus.NOT_FOUND.value(), e.getMessage(), Instant.now(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
     }
+
+    //TODO Erro personalisado: DataIntegrityException
+    @ExceptionHandler(DataIntegrityException.class)
+    public ResponseEntity<StandardError> dataIntegrity(DataIntegrityException e, HttpServletRequest request) {
+        StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), Instant.now(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
+
+
 }
