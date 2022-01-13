@@ -2,6 +2,7 @@ package com.lojanelioalves.api.service;
 
 import com.lojanelioalves.api.dto.CategoriaDTO;
 import com.lojanelioalves.api.entities.Categoria;
+import com.lojanelioalves.api.entities.Cliente;
 import com.lojanelioalves.api.repositories.CategoriaRepository;
 import com.lojanelioalves.api.service.exceptions.DataIntegrityException;
 import com.lojanelioalves.api.service.exceptions.ObjectNotFoundException;
@@ -42,8 +43,16 @@ public class CategoriaService {
 
     //Todo Serviço: Atualizar categorias
     public Categoria atualizar(Categoria objCategoria) {
-        buscarPorId(objCategoria.getId());
-        return repository.save(objCategoria);
+        // Pesquisando na base de dados pra ver se existe o cliente
+        Categoria categoriaExistente = buscarPorId(objCategoria.getId());
+        //Atualizo os dados
+        updateDados(categoriaExistente, objCategoria);
+        return repository.save(categoriaExistente);
+    }
+
+    //Todo Serviço: Metodo auxiliar para atualizar os dados.
+    private void updateDados(Categoria categoriaExistente, Categoria objCategoria) {
+        categoriaExistente.setNome(objCategoria.getNome());
     }
 
     //Todo Serviço: Excluir categoria por ID
