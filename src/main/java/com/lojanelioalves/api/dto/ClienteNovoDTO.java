@@ -1,21 +1,49 @@
 package com.lojanelioalves.api.dto;
 
+import com.lojanelioalves.api.service.validation.ClienteInsert;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
+@ClienteInsert
 public class ClienteNovoDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @NotEmpty(message = "Preenchimento Obrigatório")
+    @Length(min = 5, max = 80, message = "O tamanho deve ser entre 5 e 120 caracteres")
     private String nome;
+
+
+    @NotEmpty(message = "Preenchimento Obrigatório")
+    @Email(message = "E-mail inválido")
     private String email;
+
+    @NotEmpty(message = "Preenchimento Obrigatório")
+
     private String cpfOuCnpj;
+
     private Integer tipo;
+
+    @NotEmpty(message = "Preenchimento Obrigatório")
     private String logradouro;
+
+    @NotEmpty(message = "Preenchimento Obrigatório")
     private String numero;
+
     private String complemento;
+
+    @NotEmpty(message = "Preenchimento Obrigatório")
     private String bairro;
+
+    @NotEmpty(message = "Preenchimento Obrigatório")
     private String cep;
+
+    @NotEmpty(message = "Preenchimento Obrigatório")
     private String telefone1;
+
     private String telefone2;
     private String telefone3;
     private Long cidadeId;
