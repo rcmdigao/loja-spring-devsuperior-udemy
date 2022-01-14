@@ -3,6 +3,7 @@ package com.lojanelioalves.api.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 
+//Todo Entidade: Cidade
 @Entity
 @Table(name = "tb_cidade")
 public class Cidade implements Serializable {

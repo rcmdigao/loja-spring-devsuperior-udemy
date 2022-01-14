@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+//Todo Entidade: Categoria
 @Entity
 @Table(name = "tb_categoria")
 public class Categoria implements Serializable {

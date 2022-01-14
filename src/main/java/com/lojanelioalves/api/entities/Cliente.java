@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+//Todo Entidade: Cliente
 @Entity
 @Table(name = "tb_cliente")
 public class Cliente implements Serializable {

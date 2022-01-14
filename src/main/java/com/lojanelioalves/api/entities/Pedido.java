@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+//Todo Entidade: Pedido
 @Entity
 @Table(name = "tb_pedido")
 public class Pedido implements Serializable {

@@ -21,6 +21,7 @@ public class CategoriaResource {
     @Autowired
     private CategoriaService service;
 
+    //Todo Buscar Todos
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<CategoriaDTO>> buscarTodos() {
         List<Categoria> lista = service.buscarTodos();
@@ -28,6 +29,7 @@ public class CategoriaResource {
         return ResponseEntity.ok().body(listaDTO);
     }
 
+    //Todo Paginacao
     @RequestMapping(value = "/page", method = RequestMethod.GET)
     public ResponseEntity<Page<CategoriaDTO>> buscaPaginada(
             @RequestParam(value = "pagina", defaultValue = "0") Integer pagina,
@@ -39,6 +41,7 @@ public class CategoriaResource {
         return ResponseEntity.ok().body(listaDTO);
     }
 
+    //Todo Buscar Por ID
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Categoria> buscarPorId(@PathVariable Integer id) {
         Categoria categoria = service.buscarPorId(id);
@@ -46,6 +49,7 @@ public class CategoriaResource {
 
     }
 
+    //Todo Cadastro
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> cadastrar(@Valid @RequestBody CategoriaDTO objDto) {
         Categoria obj = service.fromDTO(objDto);
@@ -56,6 +60,7 @@ public class CategoriaResource {
         return ResponseEntity.created(uri).build();
     }
 
+    //Todo Edição
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Void> atualizar(@Valid @RequestBody CategoriaDTO objDto, @PathVariable Integer id) {
         Categoria obj = service.fromDTO(objDto);
@@ -64,6 +69,7 @@ public class CategoriaResource {
         return ResponseEntity.noContent().build();
     }
 
+    //Todo Exclusão
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> excluir(@PathVariable Integer id) {
         service.excluir(id);

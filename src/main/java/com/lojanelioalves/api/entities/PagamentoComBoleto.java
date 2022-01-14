@@ -5,6 +5,7 @@ import com.lojanelioalves.api.entities.enums.EstadoPagamento;
 import javax.persistence.Entity;
 import java.util.Date;
 
+//Todo Entidade: PagamentoComBoleto
 @Entity
 public class PagamentoComBoleto extends Pagamento{
     private static final long serialVersionUID = 1L;

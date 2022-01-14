@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+//Todo Entidade: ItemPedido
 @Entity
 public class ItemPedido {
 

@@ -1,13 +1,13 @@
 package com.lojanelioalves.api.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+//Todo Entidade: Estado
 @Entity
 @Table(name = "tb_estado")
 public class Estado implements Serializable {

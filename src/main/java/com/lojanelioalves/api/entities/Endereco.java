@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.io.Serializable;
 
+//Todo Entidade: Endereco
 @Entity
 @Table(name = "tb_endereco")
 public class Endereco implements Serializable {

@@ -6,6 +6,7 @@ import com.lojanelioalves.api.entities.enums.EstadoPagamento;
 import javax.persistence.*;
 import java.io.Serializable;
 
+//Todo Entidade: Pagamento
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "tb_pagamento")
