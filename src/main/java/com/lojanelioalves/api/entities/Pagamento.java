@@ -1,6 +1,7 @@
 package com.lojanelioalves.api.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.lojanelioalves.api.entities.enums.EstadoPagamento;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.io.Serializable;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "tb_pagamento")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
 public abstract class Pagamento implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -52,7 +54,7 @@ public abstract class Pagamento implements Serializable {
         return pedido;
     }
 
-    public void setPedidos(Pedido pedido) {
+    public void setPedido(Pedido pedido) {
         this.pedido = pedido;
     }
 

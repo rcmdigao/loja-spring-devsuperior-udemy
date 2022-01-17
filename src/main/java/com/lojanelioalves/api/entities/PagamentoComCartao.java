@@ -1,11 +1,13 @@
 package com.lojanelioalves.api.entities;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.lojanelioalves.api.entities.enums.EstadoPagamento;
 
 import javax.persistence.Entity;
 
 //Todo Entidade: PagamentoComCartao
 @Entity
+@JsonTypeName("pagamentoComCartao")
 public class PagamentoComCartao extends Pagamento{
     private static final long serialVersionUID = 1L;
     private Integer numeroDeParcelas;
