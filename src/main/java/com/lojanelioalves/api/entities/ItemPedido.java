@@ -28,6 +28,12 @@ public class ItemPedido {
         this.preco = preco;
     }
 
+    public double getSubTotal(){
+        return (preco - desconto) * quantidade;
+    }
+
+
+
     // acesso direto fora da classe
     @JsonIgnore
     public Pedido getPedido() {
